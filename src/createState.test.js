@@ -1,28 +1,26 @@
 import createState from './createState';
 
 test('createState should create a state definition', () => {
-    const stateDef = createState({
-        a: 'aa',
-        b: '1',
-        c: true,
-        d: {
-            e: 2,
+    const defaultState = {
+        childA: {
+            a: 1,
+            b: true,
+            c: {
+                d: 3,
+            }
         },
-        e: [],
-    });
+        childB: {
+            a: 2,
+            b: false
+        },
+        someProp: true,
+    };
 
-    expect(stateDef.a).toBe('a');
-    expect(stateDef.b).toBe('b');
-    expect(stateDef.c).toBe('c');
-    expect(stateDef.d).toEqual({
-        e: 'd.e',
-        _path: 'd',
-    });
-    expect(stateDef.d.e).toBe('d.e');
-    expect(stateDef.e).toBe('e');
+    const stateDef = createState(defaultState);
+
+    expect(stateDef.childA.__path).toBe('childA');
+    expect(stateDef.childA.a.__path).toBe('childA.a');
+    expect(stateDef.childA.c.__path).toBe('childA.c');
+    expect(stateDef.childA.c.d.__path).toBe('childA.c.d');
+    expect(stateDef.someProp.__path).toBe('someProp');
 });
-
-// stateDef.d -> {e: 2}
-// stateDef.d.e -> 2
-
-// stateDef.d = {e: 'd.e', _path: 'd'}

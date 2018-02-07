@@ -12,6 +12,7 @@ type Action = {
     }
 }
 
+// todo: add root path param to be able to combine this reducer with other reducers
 export default (defaultState: Object): Function =>
     (state: Object = defaultState, action: Action) => {
         if (action.type.substr(0, ACTION_PREFIX.length) === ACTION_PREFIX) {

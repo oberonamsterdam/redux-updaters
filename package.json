@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "npm run build && jest",
-    "build": "npm run build:clean && npm run build:lib && npm run build:docs",
+    "build": "npm run build:clean && npm run build:lib",
     "build:clean": "rimraf lib/",
     "build:lib": "babel src --out-dir lib",
     "build:docs": "documentation build src/index.js -f md > api.md"

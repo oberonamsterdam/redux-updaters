@@ -36,5 +36,9 @@
     "dot-prop": "^4.2.0",
     "snake-case": "^2.1.0",
     "typeof-is": "^1.0.2"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }

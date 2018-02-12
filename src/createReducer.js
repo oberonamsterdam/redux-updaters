@@ -12,6 +12,15 @@ type Action = {
     }
 }
 
+/**
+ * Get the reducer. You will need to add this to your store.
+ * @param defaultState
+ * @param rootPath The from the root of your state to where you will use this reducer. Use empty string if you will use
+ * this reducer as the root reducer.
+ * @example
+ * const reducer = createReducer(defaultState, 'app');
+ * const rootReducer = combineReducers({app: reducer});
+ */
 export default (defaultState: Object, rootPath: string): Function => {
     const pathPrefix = rootPath ? rootPath + '.' : '';
     const formatPath = (path: string): string =>

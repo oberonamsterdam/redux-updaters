@@ -13,6 +13,12 @@ const valueUpdater = (stateKey: string, value: string) =>
 const functionUpdater = (stateKey: string, fn: Object => any) => (dispatch: Function, getState: () => Object) =>
     dispatch(createAction('UPDATE', stateKey, fn(getState())));
 
+/**
+ * @example
+ * dispatch(update('app.currentIndex', 3))
+ * @example
+ * dispatch(update('app.currentIndex', state => state.app.pages.length - 1))
+ */
 export default (stateKey: string, value: string | Object => any) =>
     typeof value === 'function'
         ? functionUpdater(stateKey, value)

@@ -29,4 +29,11 @@ test('createReducer should create a redux reducer that updates the state on upda
         meta: {path: 'd.e'},
         payload: 3,
     }).d.e).toBe(3);
+
+    const deepReducer = createReducer(defaultState, 'root');
+    expect(deepReducer(defaultState, {
+        type: supportedActionType,
+        meta: {path: 'root.d.e'},
+        payload: 3,
+    }).d.e).toBe(3);
 });

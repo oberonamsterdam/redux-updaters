@@ -1,4 +1,4 @@
-import { ACTION_PREFIX } from '../createReducer';
+import createAction from '../createAction';
 import toggle from './toggle';
 
 test('toggle updater should dispatch a toggle action', () => {
@@ -7,23 +7,14 @@ test('toggle updater should dispatch a toggle action', () => {
     };
 
     toggle('myBool')(getDispatch(action => {
-        expect(action).toEqual({
-            type: ACTION_PREFIX + 'TOGGLE',
-            meta: {path: 'myBool'},
-            payload: true,
-        });
+        expect(action).toEqual(createAction('TOGGLE', 'myBool', true));
     }), () => ({
         myBool: false,
     }));
 
     toggle('myBool')(getDispatch(action => {
-        expect(action).toEqual({
-            type: ACTION_PREFIX + 'TOGGLE',
-            meta: {path: 'myBool'},
-            payload: false,
-        });
+        expect(action).toEqual(createAction('TOGGLE', 'myBool', false));
     }), () => ({
         myBool: true,
     }));
-
 });

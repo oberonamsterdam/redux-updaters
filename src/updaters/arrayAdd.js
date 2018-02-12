@@ -1,22 +1,12 @@
 // @flow
 
-import dotProp from 'dot-prop';
-import { ACTION_PREFIX } from '../createReducer';
+import updater from './updater';
 
-export default (value: any, stateKey: string) => (dispatch: Function, getState: Function) => {
-    const curVal = dotProp.get(getState(), stateKey);
-
-    if (!Array.isArray(curVal)) {
-        if (process.env.development) {
-            console.warn(`ArrayAdd: ${stateKey} is not an array`);
-        }
-    } else {
-        dispatch({
-            type: ACTION_PREFIX + 'ARRAY_ADD',
-            meta: {
-                path: stateKey,
-            },
-            payload: [...curVal, value],
-        });
-    }
-};
+export default (stateKey: string, value: any) =>
+    updater(
+        'ARRAY_ADD',
+        stateKey,
+        curArr => [...curArr, value],
+        Array.isArray,
+        `arrayAdd: ${stateKey} is not an array`
+    );

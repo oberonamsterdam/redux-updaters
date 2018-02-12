@@ -1,22 +1,13 @@
 // @flow
 
-import dotProp from 'dot-prop';
-import { ACTION_PREFIX } from '../createReducer';
+import updater from './updater';
+import typeOfIs from 'typeof-is';
 
-export default (stateKey: string) => (dispatch: Function, getState: Function) => {
-    const curVal = dotProp.get(getState(), stateKey);
-
-    if (typeof curVal !== 'boolean') {
-        if (process.env.development) {
-            console.warn(`Toggle: ${stateKey} is not a boolean`);
-        }
-    } else {
-        dispatch({
-            type: ACTION_PREFIX + 'TOGGLE',
-            meta: {
-                path: stateKey,
-            },
-            payload: !curVal,
-        });
-    }
-};
+export default (stateKey: string) =>
+    updater(
+        'TOGGLE',
+        stateKey,
+        val => !val,
+        typeOfIs.boolean,
+        `Toggle: ${stateKey} is not a boolean`
+    );

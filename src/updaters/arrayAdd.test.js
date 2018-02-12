@@ -1,4 +1,4 @@
-import { ACTION_PREFIX } from '../createReducer';
+import createAction from '../createAction';
 import arrayAdd from './arrayAdd';
 
 test('arrayAdd updater should dispatch payload with an added array value', () => {
@@ -6,22 +6,14 @@ test('arrayAdd updater should dispatch payload with an added array value', () =>
         expectFn(action);
     };
 
-    arrayAdd('a', 'myArr')(getDispatch(action => {
-        expect(action).toEqual({
-            type: ACTION_PREFIX + 'ARRAY_ADD',
-            meta: {path: 'myArr'},
-            payload: ['a'],
-        });
+    arrayAdd('myArr', 'a')(getDispatch(action => {
+        expect(action).toEqual(createAction('ARRAY_ADD', 'myArr', ['a']));
     }), () => ({
         myArr: [],
     }));
 
-    arrayAdd('b', 'myArr')(getDispatch(action => {
-        expect(action).toEqual({
-            type: ACTION_PREFIX + 'ARRAY_ADD',
-            meta: {path: 'myArr'},
-            payload: ['a', 'b'],
-        });
+    arrayAdd('myArr', 'b')(getDispatch(action => {
+        expect(action).toEqual(createAction('ARRAY_ADD', 'myArr', ['a', 'b']));
     }), () => ({
         myArr: ['a'],
     }));

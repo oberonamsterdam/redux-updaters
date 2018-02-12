@@ -1,15 +1,19 @@
 // @flow
 
-import { ACTION_PREFIX } from '../createReducer';
+import createAction from '../createAction';
+import updater from './updater';
 
-export default (value: any, stateKey: string) => (dispatch: Function, getState: Function) => {
-    const payload = typeof value === 'function' ? value(getState()) : value;
+const valueUpdater = (stateKey: string, value: string) =>
+    updater(
+        'UPDATE',
+        stateKey,
+        () => value,
+    );
 
-    dispatch({
-        type: ACTION_PREFIX + 'UPDATE',
-        meta: {
-            path: stateKey,
-        },
-        payload,
-    });
-};
+const functionUpdater = (stateKey: string, fn: Object => any) => (dispatch: Function, getState: () => Object) =>
+    dispatch(createAction('UPDATE', stateKey, fn(getState())));
+
+export default (stateKey: string, value: string | Object => any) =>
+    typeof value === 'function'
+        ? functionUpdater(stateKey, value)
+        : valueUpdater(stateKey, value);

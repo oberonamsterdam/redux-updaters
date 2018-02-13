@@ -7,7 +7,7 @@ test('createUpdater should create an updater function', () => {
     };
 
     const assertionFailMessage = 'abc';
-    const testUpdater = (stateKey, newVal) => updater('TEST_ACTION', stateKey, () => newVal, val => typeof val === 'number', assertionFailMessage);
+    const testUpdater = (statePath, newVal) => updater('TEST_ACTION', statePath, () => newVal, val => typeof val === 'number', assertionFailMessage);
 
     testUpdater('test.path', 2)(getDispatch(action => {
         expect(action).toEqual({

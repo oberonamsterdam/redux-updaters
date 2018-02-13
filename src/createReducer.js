@@ -15,7 +15,7 @@ type Action = {
 /**
  * Get the reducer. You will need to add this to your store.
  * @param defaultState
- * @param rootPath The from the root of your state to where you will use this reducer. Use empty string if you will use
+ * @param rootPath The path from the root of your state to where you will use this reducer. Use empty string if you will use
  * this reducer as the root reducer.
  * @example
  * const reducer = createReducer(defaultState, 'app');

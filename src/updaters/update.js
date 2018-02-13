@@ -1,17 +1,18 @@
 // @flow
 
+import type { StatePath } from '../createAction';
 import createAction from '../createAction';
 import updater from './updater';
 
-const valueUpdater = (stateKey: string, value: string) =>
+const valueUpdater = (statePath: StatePath, value: string) =>
     updater(
         'UPDATE',
-        stateKey,
+        statePath,
         () => value,
     );
 
-const functionUpdater = (stateKey: string, fn: Object => any) => (dispatch: Function, getState: () => Object) =>
-    dispatch(createAction('UPDATE', stateKey, fn(getState())));
+const functionUpdater = (statePath: StatePath, fn: Object => any) => (dispatch: Function, getState: () => Object) =>
+    dispatch(createAction('UPDATE', statePath, fn(getState())));
 
 /**
  * @example
@@ -19,7 +20,7 @@ const functionUpdater = (stateKey: string, fn: Object => any) => (dispatch: Func
  * @example
  * dispatch(update('app.currentIndex', state => state.app.pages.length - 1))
  */
-export default (stateKey: string, value: string | Object => any) =>
+export default (statePath: StatePath, value: string | Object => any) =>
     typeof value === 'function'
-        ? functionUpdater(stateKey, value)
-        : valueUpdater(stateKey, value);
+        ? functionUpdater(statePath, value)
+        : valueUpdater(statePath, value);

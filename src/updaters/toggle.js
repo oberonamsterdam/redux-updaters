@@ -1,5 +1,7 @@
 // @flow
 
+import { pathName } from '../createAction';
+import type { StatePath } from '../createAction';
 import updater from './updater';
 import typeOfIs from 'typeof-is';
 
@@ -8,11 +10,11 @@ import typeOfIs from 'typeof-is';
  * @example
  * dispatch(toggle('app.menuIsOpen'))
  */
-export default (stateKey: string) =>
+export default (statePath: StatePath) =>
     updater(
         'TOGGLE',
-        stateKey,
+        statePath,
         val => !val,
         typeOfIs.boolean,
-        `Toggle: ${stateKey} is not a boolean`
+        `Toggle: ${pathName(statePath)} is not a boolean`
     );

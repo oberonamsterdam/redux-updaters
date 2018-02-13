@@ -1,4 +1,4 @@
-import createState from './createState';
+import createState from './createStatePaths';
 
 test('createState should create a state definition', () => {
     const defaultState = {

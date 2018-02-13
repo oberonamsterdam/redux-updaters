@@ -1,17 +1,18 @@
 {
   "name": "oberon-redux",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Update your redux state directly from your components. No reducers, no actions. ",
   "main": "lib/index.js",
   "scripts": {
     "test": "npm run build && jest",
-    "build": "npm run build:clean && npm run build:lib",
+    "build": "npm run build:clean && npm run build:lib && npm run build:flow",
     "build:clean": "rimraf lib/",
     "build:lib": "babel src --out-dir lib",
+    "build:flow": "flow-copy-source -v src lib",
     "build:docs": "documentation build src/index.js -f md > api.md"
   },
   "author": "Richard van Willegen",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
@@ -22,6 +23,7 @@
     "eslint": "^4.16.0",
     "eslint-config-oberon": "^1.1.3",
     "flow-bin": "^0.64.0",
+    "flow-copy-source": "^1.3.0",
     "jest": "^22.1.4",
     "rimraf": "^2.6.2"
   },

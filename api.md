@@ -3,7 +3,10 @@
 ### Table of Contents
 
 -   [createReducer](#createreducer)
+-   [StatePathTree](#statepathtree)
+-   [createStatePaths](#createstatepaths)
 -   [update](#update)
+-   [StatePath](#statepath)
 -   [toggle](#toggle)
 -   [arrayAdd](#arrayadd)
 
@@ -14,7 +17,7 @@ Get the reducer. You will need to add this to your store.
 **Parameters**
 
 -   `defaultState` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
--   `rootPath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The from the root of your state to where you will use this reducer. Use empty string if you will use
+-   `rootPath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** The path from the root of your state to where you will use this reducer. Use empty string if you will use
     this reducer as the root reducer.
 
 **Examples**
@@ -26,11 +29,36 @@ const rootReducer = combineReducers({app: reducer});
 
 Returns **[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)** 
 
+## StatePathTree
+
+A tree that contains paths to your state properties, derived from your default state. Useful when using Flow.
+
+Type: any
+
+## createStatePaths
+
+Create a paths object that contains all the paths to your state properties. This is useful when using flow, because
+it adds type checking to the paths given to updaters.
+
+**Parameters**
+
+-   `defaultState` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** D
+-   `rootPath` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Same path as given to createReducer
+
+**Examples**
+
+```javascript
+const paths = createStatePath(defaultState, 'app')
+dispatch(update(paths.currentIndex, 3)) // this will result in a flow error if currentIndex is not in your defaultState.
+```
+
+Returns **[StatePathTree](#statepathtree)&lt;D>** 
+
 ## update
 
 **Parameters**
 
--   `stateKey` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `statePath` **[StatePath](#statepath)** 
 -   `value` **([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | function ([Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)): any)** 
 
 **Examples**
@@ -43,13 +71,19 @@ dispatch(update('app.currentIndex', 3))
 dispatch(update('app.currentIndex', state => state.app.pages.length - 1))
 ```
 
+## StatePath
+
+A path representation to a property in the state.
+
+Type: ([string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) \| [StatePathTree](#statepathtree)&lt;any>)
+
 ## toggle
 
 Toggle a boolean value
 
 **Parameters**
 
--   `stateKey` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `statePath` **[StatePath](#statepath)** 
 
 **Examples**
 
@@ -63,7 +97,7 @@ Add something to the end of an array.
 
 **Parameters**
 
--   `stateKey` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `statePath` **[StatePath](#statepath)** 
 -   `value` **any** 
 
 **Examples**

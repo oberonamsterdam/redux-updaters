@@ -1,4 +1,4 @@
-import createAction from './createAction';
+import createAction, { pathName } from './createAction';
 import { ACTION_PREFIX } from './createReducer';
 
 test('createAction should return an action', () => {
@@ -7,4 +7,13 @@ test('createAction should return an action', () => {
         meta: {path: 'some.pathName'},
         payload: 'new value',
     });
+});
+
+test('createAction.getPath should return the correct path or [unknown]', () => {
+    expect(pathName('abc')).toBe('abc');
+    expect(pathName('abc.def')).toBe('abc.def');
+    expect(pathName({__path: 'abc'})).toBe('abc');
+    expect(pathName({})).toBe('[unknown]');
+    expect(pathName('')).toBe('[unknown]');
+    expect(pathName(null)).toBe('[unknown]');
 });

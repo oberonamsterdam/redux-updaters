@@ -1,5 +1,7 @@
 // @flow
 
+import { pathName } from '../createAction';
+import type { StatePath } from '../createAction';
 import updater from './updater';
 
 /**
@@ -7,11 +9,11 @@ import updater from './updater';
  * @example
  * dispatch(arrayAdd('app.todos', 'New to do');
  */
-export default (stateKey: string, value: any) =>
+export default (statePath: StatePath, value: any) =>
     updater(
         'ARRAY_ADD',
-        stateKey,
+        statePath,
         curArr => [...curArr, value],
         Array.isArray,
-        `arrayAdd: ${stateKey} is not an array`
+        `arrayAdd: ${pathName(statePath)} is not an array`
     );

@@ -1,6 +1,9 @@
 # Oberon Redux
 
-Define your default state and update your state directly from your components. No reducers,
+[![npm](https://img.shields.io/npm/v/oberon-redux.svg)](https://www.npmjs.com/package/oberon-redux)
+[![Travis](https://img.shields.io/travis/oberonamsterdam/oberon-redux/master.svg)](https://travis-ci.org/oberonamsterdam/oberon-redux/)
+
+Update your state directly from your components. No reducers,
 no actions. 
 
 ## Installation

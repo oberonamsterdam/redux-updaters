@@ -4,7 +4,7 @@ import type { StatePath } from '../createAction';
 import createAction from '../createAction';
 import updater from './updater';
 
-const valueUpdater = (statePath: StatePath, value: string) =>
+const valueUpdater = (statePath: StatePath, value: any) =>
     updater(
         'UPDATE',
         statePath,

@@ -1,7 +1,22 @@
-import createState from './createStatePaths';
+import createState, { StatePathTree } from './createStatePaths';
+
+interface TestState {
+    childA: {
+        a: number;
+        b: boolean;
+        c: {
+            d: number
+        }
+    };
+    childB: {
+        a: number,
+        b: boolean;
+    };
+    someProp: boolean;
+}
 
 test('createState should create a state definition', () => {
-    const defaultState = {
+    const defaultState: TestState = {
         childA: {
             a: 1,
             b: true,
@@ -16,7 +31,7 @@ test('createState should create a state definition', () => {
         someProp: true,
     };
 
-    const stateDef = createState(defaultState);
+    const stateDef: StatePathTree<TestState> = createState(defaultState);
 
     expect(stateDef.childA.__path).toBe('childA');
     expect(stateDef.childA.a.__path).toBe('childA.a');

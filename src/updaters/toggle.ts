@@ -1,7 +1,6 @@
 // @flow
 
-import { pathName } from '../createAction';
-import type { StatePath } from '../createAction';
+import { pathName, StatePath } from '../createAction';
 import updater from './updater';
 import typeOfIs from 'typeof-is';
 

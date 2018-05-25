@@ -4,20 +4,21 @@
   "description": "Update your redux state directly from your components. No reducers, no actions. ",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm run build && jest",
-    "build": "npm run build:clean && npm run build:lib && npm run build:flow",
+    "test": "jest",
+    "build": "npm run build:clean && npm run build:lib",
     "build:clean": "rimraf lib/",
-    "build:lib": "babel src --out-dir lib",
-    "build:flow": "flow-copy-source -v src lib",
-    "build:docs": "documentation build src/index.js -f md > api.md"
+    "build:lib": "tsc",
+    "build:docs": "documentation build src/index.ts -f md > api.md",
+    "precommit": "tslint --project ."
   },
   "author": "Richard van Willegen",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/oberonamsterdam/oberon-redux"
+    "type": "git",
+    "url": "https://github.com/oberonamsterdam/oberon-redux"
   },
   "devDependencies": {
+    "@types/jest": "^22.2.3",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-preset-env": "^1.6.1",
@@ -26,25 +27,43 @@
     "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.16.0",
     "eslint-config-oberon": "^1.1.3",
-    "flow-bin": "^0.64.0",
-    "flow-copy-source": "^1.3.0",
+    "husky": "^0.14.3",
     "jest": "^22.1.4",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "ts-jest": "^22.4.6",
+    "tslint": "^5.10.0",
+    "tslint-config-oberon": "^1.0.3",
+    "typescript": "^2.8.3"
   },
   "PeerDependencies": {
     "redux": "^3.0.0",
     "redux-thunk": "^2.0.0"
   },
-  "eslintConfig": {
-    "extends": "oberon"
-  },
   "dependencies": {
+    "@types/dot-prop": "^4.2.0",
+    "@types/node": "^10.1.1",
     "dot-prop": "^4.2.0",
+    "npx": "^10.2.0",
     "snake-case": "^2.1.0",
     "typeof-is": "^1.0.2"
   },
   "jest": {
     "coverageDirectory": "./coverage/",
-    "collectCoverage": true
+    "collectCoverage": true,
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }

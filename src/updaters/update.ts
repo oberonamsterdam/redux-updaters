@@ -1,7 +1,6 @@
 // @flow
 
-import type { StatePath } from '../createAction';
-import createAction from '../createAction';
+import { default as createAction, StatePath } from '../createAction';
 import updater from './updater';
 
 const valueUpdater = (statePath: StatePath, value: any) =>
@@ -11,8 +10,9 @@ const valueUpdater = (statePath: StatePath, value: any) =>
         () => value,
     );
 
-const functionUpdater = (statePath: StatePath, fn: Object => any) => (dispatch: Function, getState: () => Object) =>
-    dispatch(createAction('UPDATE', statePath, fn(getState())));
+const functionUpdater = (statePath: StatePath, fn: (...args: any[]) => any) =>
+    (dispatch: (...args: any[]) => void, getState: () => object) =>
+        dispatch(createAction('UPDATE', statePath, fn(getState())));
 
 /**
  * @example
@@ -20,7 +20,7 @@ const functionUpdater = (statePath: StatePath, fn: Object => any) => (dispatch: 
  * @example
  * dispatch(update('app.currentIndex', state => state.app.pages.length - 1))
  */
-export default (statePath: StatePath, value: string | Object => any) =>
+export default (statePath: StatePath, value: string | object) =>
     typeof value === 'function'
         ? functionUpdater(statePath, value)
         : valueUpdater(statePath, value);

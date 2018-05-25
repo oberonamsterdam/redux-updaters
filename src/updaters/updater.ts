@@ -1,16 +1,15 @@
 // @flow
 
 import dotProp from 'dot-prop';
-import type { StatePath } from '../createAction';
-import createAction, { pathName } from '../createAction';
+import { default as createAction, StatePath, pathName } from '../createAction';
 
 export const updater = (
     action: string,
     statePath: StatePath,
     updateVal: (curValue: any) => any,
     assertCurValue?: (value: any) => boolean,
-    assertionFailMessage?: string,
-) => (dispatch: Function, getState: Function) => {
+    assertionFailMessage?: string
+) => (dispatch: (...args: any[]) => void, getState: () => object) => {
     const curVal = dotProp.get(getState(), pathName(statePath));
 
     if (assertCurValue && !assertCurValue(curVal)) {

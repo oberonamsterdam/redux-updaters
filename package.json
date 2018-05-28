@@ -22,6 +22,12 @@
     "@types/dot-prop": "^4.2.0",
     "@types/jest": "^22.2.3",
     "@types/node": "^10.1.3",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "husky": "^0.14.3",
     "jest": "^23.0.1",
     "rimraf": "^2.6.2",
@@ -36,6 +42,7 @@
   },
   "dependencies": {
     "dot-prop": "^4.2.0",
+    "npx": "^10.2.0",
     "snake-case": "^2.1.0",
     "typeof-is": "^1.0.2"
   },

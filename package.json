@@ -3,6 +3,7 @@
   "version": "0.2.1",
   "description": "Update your redux state directly from your components. No reducers, no actions. ",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest",
     "build": "npm run build:clean && npm run build:lib",

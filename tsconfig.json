@@ -6,7 +6,6 @@
     "downlevelIteration": true,
     "lib": ["es6", "dom", "esnext.asynciterable"],
     "sourceMap": true,
-    "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
@@ -16,7 +15,8 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": false,
     "noUnusedLocals": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
   },
   "exclude": [
     "node_modules",

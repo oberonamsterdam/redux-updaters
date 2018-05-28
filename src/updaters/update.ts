@@ -20,7 +20,7 @@ const functionUpdater = (statePath: StatePath, fn: (...args: any[]) => any) =>
  * @example
  * dispatch(update('app.currentIndex', state => state.app.pages.length - 1))
  */
-export default (statePath: StatePath, value: string | object) =>
+export default (statePath: StatePath, value: any) =>
     typeof value === 'function'
         ? functionUpdater(statePath, value)
         : valueUpdater(statePath, value);

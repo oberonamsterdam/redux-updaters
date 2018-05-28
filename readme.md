@@ -93,3 +93,22 @@ const MyComponent = props => (
 
 export default enhance(MyComponent);
 ```
+
+## Using with TypeScript
+
+This package includes TypeScript type definitions. So type checking on all functions should be enabled by default. To add 
+type checking on the path names given to updater functions, you can use the [createStatePaths](api.md#createstatepaths)
+function to retrieve a [StatePathTree](api.md#statepathtree). This is a recursive structure that you can use instead of
+strings when passing the state path to an updater function. 
+
+```js
+import { createStatePaths } from 'oberon-redux';
+
+export const paths = createStatePaths(defaultState, 'app');
+
+// somewhere in your component
+dispatch(update(paths.currentIndex, 3));
+// is same as
+dispatch(update('app.currentIndex', 3)); 
+// but with type checking. Catch errors before they happen!
+```

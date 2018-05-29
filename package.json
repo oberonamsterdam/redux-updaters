@@ -10,7 +10,8 @@
     "build:clean": "rimraf lib/",
     "build:lib": "tsc",
     "build:docs": "documentation build lib/index.js -f md > api.md",
-    "precommit": "tslint --project ."
+    "precommit": "tslint --project .",
+    "prepare": "npm run build"
   },
   "author": "Richard van Willegen",
   "license": "MIT",
@@ -42,9 +43,7 @@
   },
   "dependencies": {
     "dot-prop": "^4.2.0",
-    "npx": "^10.2.0",
-    "snake-case": "^2.1.0",
-    "typeof-is": "^1.0.2"
+    "snake-case": "^2.1.0"
   },
   "jest": {
     "coverageDirectory": "./coverage/",

@@ -1,6 +1,6 @@
 {
   "name": "oberon-redux",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Update your redux state directly from your components. No reducers, no actions.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

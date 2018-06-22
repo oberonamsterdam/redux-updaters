@@ -1,5 +1,3 @@
-// @flow
-
 import dotProp from 'dot-prop';
 import { Action, ACTION_PREFIX } from './createAction';
 

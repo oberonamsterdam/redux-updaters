@@ -1,5 +1,3 @@
-// @flow
-
 import dotProp from 'dot-prop';
 import { default as createAction, StatePath, pathName } from '../createAction';
 

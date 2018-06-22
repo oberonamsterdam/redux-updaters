@@ -1,5 +1,3 @@
-// @flow
-
 import { pathName, StatePath } from '../createAction';
 import updater from './updater';
 

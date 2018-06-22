@@ -1,4 +1,3 @@
-// @flow
 const isObject = (value: any): boolean => !Array.isArray(value) && typeof value === 'object' && value !== null;
 const getPath = (startPath: string, key: string): string => (startPath ? startPath + '.' : '') + key;
 
@@ -10,8 +9,17 @@ export interface PathString {
     __path: string;
 }
 
+// defaultState:
+// {a: 1, b: {c: true}}
+//
+// StatePathTree:
+// {
+//   a: { __path: 'a' },
+//   b: { __path: 'b', c: { __path: 'b.c' }}
+//   __path: ''
+// }
 export type StatePathTree<DefaultState> = PathString & {
-    [V in keyof DefaultState]: StatePathTree<DefaultState[V]>
+    [K in keyof DefaultState]: StatePathTree<DefaultState[K]>
 };
 
 const createNode = (path: string): any => ({ __path: path });

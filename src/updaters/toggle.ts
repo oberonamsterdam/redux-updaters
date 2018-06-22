@@ -1,9 +1,6 @@
-// @flow
-
-import { pathName } from '../createAction';
-import type { StatePath } from '../createAction';
+import { pathName, StatePath } from '../createAction';
 import updater from './updater';
-import typeOfIs from 'typeof-is';
+import { isBoolean } from '../services/typeService';
 
 /**
  * Toggle a boolean value
@@ -15,6 +12,6 @@ export default (statePath: StatePath) =>
         'TOGGLE',
         statePath,
         val => !val,
-        typeOfIs.boolean,
+        isBoolean,
         `Toggle: ${pathName(statePath)} is not a boolean`
     );

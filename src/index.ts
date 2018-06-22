@@ -1,5 +1,3 @@
-// @flow
-
 export { default as createReducer } from './createReducer';
 export { default as createStatePaths } from './createStatePaths';
 export { default as update } from './updaters/update';

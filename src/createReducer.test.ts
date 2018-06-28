@@ -36,4 +36,15 @@ test('createReducer should create a redux reducer that updates the state on upda
         meta: { path: 'root.d.e' },
         payload: 3,
     }).d.e).toBe(3);
+
+    const newState = deepReducer(defaultState, {
+        type: supportedActionType,
+        meta: { path: 'root.d.e' },
+        payload: 3,
+    });
+    // objects should not be mutated
+    expect(newState).not.toBe(defaultState);
+    expect(newState.d).not.toBe(defaultState.d);
+    expect(newState.d.e).toBe(3);
+    expect(defaultState.d.e).toBe(2);
 });

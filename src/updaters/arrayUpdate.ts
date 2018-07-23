@@ -2,7 +2,7 @@ import { pathName, StatePath } from '../createAction';
 import updater from './updater';
 
 /**
- * Update object or value from an array.
+ * Update object or value from an array. Give index of value to replace the given index.
  * @example with Value
  * dispatch(arrayUpdate('app.todos', 'todo updated', 1);
  *  @example with Object ('app.todos', 'todo updated', 'id')

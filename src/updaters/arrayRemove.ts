@@ -8,23 +8,27 @@ import updater from './updater';
  */
 const removeValueFromArray = (statePath: StatePath, value: any) =>
     updater(
-        'ARRAY_DELETE_VALUE',
+        'ARRAY_REMOVE_VALUE',
         statePath,
-        curArr => curArr.filter((element: any) => element !== value),
+        curArr => curArr.filter((element: any, index: number) => index !== value),
         Array.isArray,
         `arrayDelete: ${pathName(statePath)} is not an array`
     );
 
-const removeObjectFromArray = (statePath: StatePath, value: any, key: any) =>
+const removeObjectFromArray = (statePath: StatePath, predicate: (statePath: StatePath) => void) =>
     updater(
-        'ARRAY_DELETE_OBJECT',
+        'ARRAY_REMOVE_OBJECT',
         statePath,
-        curArr => curArr.filter((obj: any) => obj.hasOwnProperty(key) && obj[key] !== value[key]),
+        curArr => removeObjectInArray(curArr, predicate),
         Array.isArray,
         `arrayDelete: ${pathName(statePath)} is not an array`
 );
 
-export default (statePath: StatePath, value: any, key: any) =>
-    typeof value === 'object'
-        ? removeObjectFromArray(statePath, value, key)
+function removeObjectInArray(array: any, predicate: any) {
+    return array.filter((val: any) => predicate(val) ? null : val);
+}
+
+export default (statePath: StatePath, value: any) =>
+    typeof value === 'function'
+        ? removeObjectFromArray(statePath, value)
         : removeValueFromArray(statePath, value);

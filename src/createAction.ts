@@ -24,7 +24,6 @@ export const actionName = (action: string, path: string): string => `${ACTION_PR
  */
 export type StatePath = string | StatePathTree<any> & any; // the "& any" is a workaround to make the StatePathTree recursive definition work
 
-export type Value = (statePath: StatePath, index: number) => boolean | number;
 /**
  *
  * @param {StatePath} statePath

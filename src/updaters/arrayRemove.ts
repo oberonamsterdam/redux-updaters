@@ -1,34 +1,28 @@
 import { pathName, StatePath } from '../createAction';
 import updater from './updater';
 
+// @ts-ignore
+const not = fn => (...args) => !fn(...args);
+
+export type ArrayTestFn = (arrayValue: any, index: number) => boolean;
+
 /**
- * Delete something from an array.
+ * Remove an entry from an array in the state.
+ * @name arrayRemove
  * @example
- * dispatch(arrayDelete('app.todos', 'todo deleted', 'id');
+ * dispatch(arrayRemove('app.todos', todoIndex));
+ * dispatch(arrayRemove('app.todos', (todoItem, index) => todoItem.id === todoId));
  */
-const removeValueFromArray = (statePath: StatePath, value: any) =>
-    updater(
-        'ARRAY_REMOVE_VALUE',
+export default (statePath: StatePath, indexOrFn: number | ArrayTestFn) => {
+    const updateValue = typeof indexOrFn === 'function'
+        ? (curArr: any[]) => curArr.filter(not(indexOrFn))
+        : (curArr: any[]) => curArr.slice(0, indexOrFn).concat(curArr.slice(indexOrFn + 1));
+
+    return updater(
+        'ARRAY_REMOVE',
         statePath,
-        curArr => curArr.filter((element: any, index: number) => index !== value),
+        updateValue,
         Array.isArray,
         `arrayDelete: ${pathName(statePath)} is not an array`
     );
-
-const removeObjectFromArray = (statePath: StatePath, predicate: (statePath: StatePath) => void) =>
-    updater(
-        'ARRAY_REMOVE_OBJECT',
-        statePath,
-        curArr => removeObjectInArray(curArr, predicate),
-        Array.isArray,
-        `arrayDelete: ${pathName(statePath)} is not an array`
-);
-
-function removeObjectInArray(array: any, predicate: any) {
-    return array.filter((val: any) => predicate(val) ? null : val);
-}
-
-export default (statePath: StatePath, value: any) =>
-    typeof value === 'function'
-        ? removeObjectFromArray(statePath, value)
-        : removeValueFromArray(statePath, value);
+};

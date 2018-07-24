@@ -6,38 +6,22 @@ test('arrayDelete updater should dispatch payload with an removed array value', 
         expectFn(action);
     };
 
-    arrayRemove('myArr', 0)(
-        getDispatch(action => {
-            expect(action).toEqual(createAction('ARRAY_REMOVE_VALUE', 'myArr', []));
-        }),
-        () => ({ myArr: ['a'] })
-    );
+    const testState = { myArr: [1, 2, 3, 4, 5] };
 
-    arrayRemove('myArr', 2)(
-        getDispatch(action => {
-            expect(action).toEqual(createAction('ARRAY_REMOVE_VALUE', 'myArr', ['a', 'b']));
-        }),
-        () => ({ myArr: ['a', 'b', 'c'] })
-    );
+    const removeExpect = (indexOrFn: any, expectedOutputValue: any) => {
+        arrayRemove('myArr', indexOrFn)(
+            getDispatch(action => {
+                expect(action).toEqual(createAction('ARRAY_REMOVE', 'myArr', expectedOutputValue));
+            }),
+            () => (testState)
+        );
+    };
 
-    arrayRemove('myArr', (val: { id: '1', letter: 'a'}) => val.id === '1')(
-        getDispatch(action => {
-            expect(action).toEqual(createAction('ARRAY_REMOVE_OBJECT', 'myArr', []));
-        }),
-        () => ({ myArr: [{ id: '1', letter: 'a' }] })
-    );
-
-    arrayRemove('myArr', (val: { id: '2', letter: 'b'}) => val.id === '2')(
-        getDispatch(action => {
-            expect(action).toEqual(createAction('ARRAY_REMOVE_OBJECT', 'myArr', [{ id: '1', letter: 'a' }]));
-        }),
-        () => ({ myArr: [{ id: '1', letter: 'a' }, { id: '2', letter: 'b' }] })
-    );
-
-    arrayRemove('myArr', (val: { id: '2', letter: 'b'}) => val.id === '2')(
-        getDispatch(action => {
-            expect(action).toEqual(createAction('ARRAY_REMOVE_OBJECT', 'myArr', [{ id: '1', letter: 'a' }, { id: '3', letter: 'b' }]));
-        }),
-        () => ({ myArr: [{ id: '1', letter: 'a' }, { id: '2', letter: 'b' }, { id: '3', letter: 'b' }] })
-    );
+    removeExpect(0, [2, 3, 4, 5]);
+    removeExpect(1, [1, 3, 4, 5]);
+    removeExpect(5, [1, 2, 3, 4, 5]);
+    removeExpect((val: number) => false, [1, 2, 3, 4, 5]);
+    removeExpect((val: number) => true, []);
+    removeExpect((val: number) => val > 2, [1, 2]);
+    removeExpect((val: number, index: number) => index > 2, [1, 2, 3]);
 });

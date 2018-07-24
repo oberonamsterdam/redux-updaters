@@ -9,6 +9,8 @@
 -   [StatePath](#statepath)
 -   [toggle](#toggle)
 -   [arrayAdd](#arrayadd)
+-   [arrayReplace](#arrayreplace)
+-   [arrayRemove](#arrayremove)
 
 ## createReducer
 

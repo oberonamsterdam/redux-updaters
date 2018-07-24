@@ -105,3 +105,36 @@ Add something to the end of an array.
 ```javascript
 dispatch(arrayAdd('app.todos', 'New to do');
 ```
+
+## arrayReplace
+
+Update object or value from an array. Give index of value to replace the given index.
+
+**Parameters**
+
+-   `statePath` **[StatePath](#statepath)**
+-   `indexOrFn` **number|(value: any, index: number) => boolean**
+-   `newValue`  
+
+**Examples**
+
+```javascript
+dispatch(arrayReplace('app.todos', todoIndex, myTodo));
+dispatch(arrayReplace('app.todos', (todoItem, index) => todoItem.id === todoId, myTodo);
+```
+
+## arrayRemove
+
+Remove an entry from an array in the state.
+
+**Parameters**
+
+-   `statePath` **[StatePath](#statepath)**
+-   `indexOrFn` **number|(value: any, index: number) => boolean**
+
+**Examples**
+
+```javascript
+dispatch(arrayRemove('app.todos', todoIndex));
+dispatch(arrayRemove('app.todos', (todoItem, index) => todoItem.id === todoId));
+```

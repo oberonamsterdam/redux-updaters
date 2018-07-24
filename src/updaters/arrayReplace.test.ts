@@ -6,31 +6,22 @@ test('arrayUpdate updater should dispatch payload with an update array value', (
         expectFn(action);
     };
 
-    arrayReplace('myArr', 0, 'b')(
-        getDispatch(action => {
-            expect(action).toEqual(createAction('ARRAY_REPLACE_VALUE', 'myArr', ['b']));
-        }),
-        () => ({ myArr: ['a'] })
-    );
+    const testState = { myArr: [1, 2, 3, 4, 5] };
 
-    arrayReplace('myArr', 1, 'c')(
-        getDispatch(action => {
-            expect(action).toEqual(createAction('ARRAY_REPLACE_VALUE', 'myArr', ['a', 'c']));
-        }),
-        () => ({ myArr: ['a', 'b'] })
-    );
+    const replaceExpect = (indexOrFn: any, value: any, expectedOutputValue: any) => {
+        arrayReplace('myArr', indexOrFn, value)(
+            getDispatch(action => {
+                expect(action).toEqual(createAction('ARRAY_REPLACE', 'myArr', expectedOutputValue));
+            }),
+            () => (testState)
+        );
+    };
 
-    arrayReplace('myArr', (val: { id: '1', letter: 'a'}) => val.id === '1', { id: '1', letter: 'c' })(
-        getDispatch(action => {
-            expect(action).toEqual(createAction('ARRAY_REPLACE_OBJECT', 'myArr', [ { id: '1', letter: 'c' }]));
-        }),
-        () => ({ myArr: [{ id: '1', letter: 'a' }] })
-    );
-
-    arrayReplace('myArr', (val: { id: '2', letter: 'b'}) => val.id === '2', { id: '2', letter: 'd' })(
-        getDispatch(action => {
-            expect(action).toEqual(createAction('ARRAY_REPLACE_OBJECT', 'myArr', [{ id: '1', letter: 'a' }, { id: '2', letter: 'd' }]));
-        }),
-        () => ({ myArr: [{ id: '1', letter: 'a' }, { id: '2', letter: 'b' }] })
-    );
+    replaceExpect(0, 0, [0, 2, 3, 4, 5]);
+    replaceExpect(1, 0, [1, 0, 3, 4, 5]);
+    replaceExpect(5, 0, [1, 2, 3, 4, 5]);
+    replaceExpect(() => false, 0, [1, 2, 3, 4, 5]);
+    replaceExpect(() => true, 0, [0, 0, 0, 0, 0]);
+    replaceExpect((val: number) => val > 2, 0, [1, 2, 0, 0, 0]);
+    replaceExpect((val: number, index: number) => index > 2, 0, [1, 2, 3, 0, 0]);
 });

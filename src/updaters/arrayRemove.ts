@@ -7,8 +7,8 @@ const not = fn => (...args) => !fn(...args);
 export type ArrayTestFn = (arrayValue: any, index: number) => boolean;
 
 /**
- * Remove an entry from an array in the state.
- * @name arrayRemove
+ * Remove an entry from an array. When a number is given, removes the entry at that index. When a function is given,
+ * removes items for which the function returns true.
  * @example
  * dispatch(arrayRemove('app.todos', todoIndex));
  * dispatch(arrayRemove('app.todos', (todoItem, index) => todoItem.id === todoId));

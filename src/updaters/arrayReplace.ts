@@ -3,9 +3,10 @@ import updater from './updater';
 import { ArrayTestFn } from './arrayRemove';
 
 /**
- * Update object or value from an array. Give index of value to replace the given index.
- * @example with Value
- * dispatch(arrayReplace('app.todos', todoIndex, myTodo);
+ * Replace a value in an array, by given index or by filter function (replaces all values for which the given function
+ * returns true).
+ * @example
+ * dispatch(arrayReplace('app.todos', todoIndex, myTodo));
  * dispatch(arrayReplace('app.todos', (todoItem, index) => todoItem.id === todoId, myTodo);
  */
 export default (statePath: StatePath, indexOrFn: number | ArrayTestFn, newValue: any) => {

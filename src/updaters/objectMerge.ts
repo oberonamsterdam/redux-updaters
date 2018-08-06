@@ -3,9 +3,9 @@ import updater from './updater';
 import { isObject } from '../services/typeService';
 
 /**
- * Increment a number value
+ * Merge an object into another
  * @example
- * dispatch(increment(app.counter))
+ * dispatch(objectMerge(statePath, data))
  */
 export default (statePath: StatePath, objectToMerge: any) =>
     updater(

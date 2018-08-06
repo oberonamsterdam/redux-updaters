@@ -5,13 +5,18 @@ import { isNumber } from '../services/typeService';
 /**
  * Increment a number value
  * @example
- * dispatch(decrement(app.counter))
+ * dispatch(decrement(app.currentPage, 5, app.firstPage))
  */
-export default (statePath: StatePath) =>
+export default (statePath: StatePath, by?: number, min?: number) => (
     updater(
         'DECREMENT',
         statePath,
-        val => val - 1,
+        val => val = (getNewVal(val, by, min)),
         isNumber,
         `Toggle: ${pathName(statePath)} is not a number`
-    );
+    )
+);
+
+const getNewVal = (val: any, by: number = 1, min: number = -Infinity) => {
+    return Math.max(min, val - by);
+};

@@ -132,7 +132,8 @@ test('objectMerge updater should dispatch an objectMerge action', () => {
                     2: { id: '2', name: 'Nicole' },
                 },
                 comments: {
-                    324: { id: '324', commenter: '2' }
+                    324: { id: '324', commenter: '2' },
+                    325: { id: '325', commenter: '2' }
                 }
             },
             objectToMerge: {
@@ -141,7 +142,8 @@ test('objectMerge updater should dispatch an objectMerge action', () => {
                     2: { id: '2', name: 'Nicole' },
                 },
                 comments: {
-                    324: { id: '324', commenter: '2' }
+                    324: { id: '324', commenter: '2' },
+                    325: { id: '325', commenter: '2' }
                 }
             },
         }

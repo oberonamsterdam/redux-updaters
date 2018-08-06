@@ -117,7 +117,7 @@ shallow merge the rest. Arrays are always merged using a shallow merge.
 
 -   `statePath` **[StatePath](#statepath)** 
 -   `object` **object**
--   `depthLimit (optional)` **number**
+-   `depthLimit?` **number**
 
 ## arrayReplace
 

@@ -4,7 +4,7 @@ import updater from './updater';
 /**
  * Add something to the end of an array.
  * @example
- * dispatch(arrayAdd('app.todos', 'New to do');
+ * dispatch(arrayAdd('app.todos', 'New to do'));
  */
 export default (statePath: StatePath, value: any) =>
     updater(

@@ -110,14 +110,14 @@ dispatch(arrayAdd('app.todos', 'New to do');
 
 ## objectMerge
 
-merge objects with a depthLimit, deepmerge everything above the depthLimit,
-shallow merge the rest.
+merge objects with an optional depthLimit, deepmerge everything above the depthLimit,
+shallow merge the rest. Arrays are always merged using a shallow merge.
 
 **Parameters**
 
 -   `statePath` **[StatePath](#statepath)** 
 -   `object` **object**
--   `depthLimit` **number**
+-   `depthLimit (optional)` **number**
 
 ## arrayReplace
 

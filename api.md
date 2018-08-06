@@ -93,6 +93,42 @@ Toggle a boolean value
 dispatch(toggle('app.menuIsOpen'))
 ```
 
+## increment
+
+Increment a value by x where x is an optional parameter ('by') that defaults to 1
+There is also an optional max parameter, if the result of the incrementation would result
+higher than that max value, it sets the value to the max value instead 
+
+**Parameters**
+
+-   `statePath` **[StatePath](#statepath)** 
+-   `by?` **number**
+-   `max?`**number**
+
+**Examples**
+
+```javascript
+    dispatch(increment(app.currentPage, 5, app.lastPage))
+```
+
+## decrement
+
+Decrement a value by x where x is an optional parameter ('by') that defaults to 1
+There is also an optional min parameter, if the result of the incrementation would result
+lower than that min value, it sets the value to the min value instead 
+
+**Parameters**
+
+-   `statePath` **[StatePath](#statepath)** 
+-   `by?` **number**
+-   `min?`**number**
+
+**Examples**
+
+```javascript
+    dispatch(decrement(app.currentPage, 5, app.firstPage))
+```
+
 ## arrayAdd
 
 Add something to the end of an array.

@@ -20,13 +20,10 @@ function deepMerge(orig: any, object: any) {
     const result: any = { ...orig };
     Object.keys(object).forEach((key: any) => {
         if (typeof object[key] === 'object' && !Array.isArray(object[key])) {
-            console.log(object[key]);
             result[key] = deepMerge(orig[key], object[key]);
         } else {
-            console.log(object[key]);
             result[key] = object[key];
         }
     });
-    console.log(result);
     return result;
 }

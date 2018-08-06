@@ -108,12 +108,14 @@ dispatch(arrayAdd('app.todos', 'New to do');
 
 ## objectMerge
 
-Add or edit an object by merging another into it.
+merge objects with a depthLimit, deepmerge everything above the depthLimit,
+shallow merge the rest.
 
 **Parameters**
 
 -   `statePath` **[StatePath](#statepath)** 
 -   `object` **object**
+-   `depthLimit` **number**
 
 **Examples**
 

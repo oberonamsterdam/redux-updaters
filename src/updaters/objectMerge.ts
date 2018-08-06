@@ -7,7 +7,7 @@ import { isObject } from '../services/typeService';
  * @example
  * dispatch(objectMerge(statePath, data))
  */
-export default (statePath: StatePath, objectToMerge: any) =>
+export default (statePath: StatePath, objectToMerge: object) =>
     updater(
         'OBJECT_MERGE',
         statePath,

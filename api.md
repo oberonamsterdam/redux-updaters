@@ -105,3 +105,18 @@ Add something to the end of an array.
 ```javascript
 dispatch(arrayAdd('app.todos', 'New to do');
 ```
+
+## objectMerge
+
+Add or edit an object by merging another into it.
+
+**Parameters**
+
+-   `statePath` **[StatePath](#statepath)** 
+-   `object` **object**
+
+**Examples**
+
+```javascript
+dispatch(objectMerge('app.myObject', object));
+```

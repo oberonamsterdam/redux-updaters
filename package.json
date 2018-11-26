@@ -1,5 +1,5 @@
 {
-  "name": "oberon-redux",
+  "name": "redux-updaters",
   "version": "0.4.0",
   "description": "Update your redux state directly from your components. No reducers, no actions.",
   "main": "lib/index.js",
@@ -18,7 +18,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/oberonamsterdam/oberon-redux"
+    "url": "https://github.com/oberonamsterdam/redux-updaters"
   },
   "devDependencies": {
     "@types/dot-prop": "^4.2.0",

@@ -1,18 +1,18 @@
-# Oberon Redux
+# Redux Updaters
 
-[![npm](https://img.shields.io/npm/v/oberon-redux.svg)](https://www.npmjs.com/package/oberon-redux)
-[![Travis](https://img.shields.io/travis/oberonamsterdam/oberon-redux/master.svg)](https://travis-ci.org/oberonamsterdam/oberon-redux/)
+[![npm](https://img.shields.io/npm/v/redux-updaters.svg)](https://www.npmjs.com/package/redux-updaters)
+[![Travis](https://img.shields.io/travis/oberonamsterdam/redux-updaters/master.svg)](https://travis-ci.org/oberonamsterdam/redux-updaters/)
 
 Update your state directly from your components. No reducers,
 no actions. 
 
 ## Installation
 
-`npm i oberon-redux`
+`npm i redux-updaters`
 
 or
 
-`yarn add oberon-redux`
+`yarn add redux-updaters`
 
 ## The gist
 
@@ -53,7 +53,7 @@ recommend using combine reducers so you have the option to add other redux
 related packages, for example to [manage your api calls and data](https://github.com/oberonamsterdam/react-api-data).
 
 ```js
-import { createReducer } from 'oberon-redux';
+import { createReducer } from 'redux-updaters';
 import defaultState from './defaultState';
 
 const reducer = createReducer(defaultState, 'app');
@@ -66,7 +66,7 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 ```js
 import React from 'react';
 import { connect } from 'react-redux';
-import { update } from 'oberon-redux';
+import { update } from 'redux-updaters';
 
 // Use react-redux to bind your state and dispatch updates. 
 
@@ -102,7 +102,7 @@ function to retrieve a [StatePathTree](api.md#statepathtree). This is a recursiv
 strings when passing the state path to an updater function. 
 
 ```js
-import { createStatePaths } from 'oberon-redux';
+import { createStatePaths } from 'redux-updaters';
 
 export const paths = createStatePaths(defaultState, 'app');
 

@@ -1,6 +1,6 @@
 {
   "name": "redux-updaters",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Update your redux state directly from your components. No reducers, no actions.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -37,7 +37,10 @@
     "redux-thunk": "^2.0.0"
   },
   "dependencies": {
-    "dot-prop": "^4.2.0",
+    "@types/get-value": "^3.0.0",
+    "@types/set-value": "^2.0.0",
+    "get-value": "^3.0.1",
+    "set-value": "^3.0.0",
     "snake-case": "^2.1.0"
   },
   "jest": {

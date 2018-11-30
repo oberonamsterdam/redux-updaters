@@ -1,4 +1,4 @@
-import dotProp from 'dot-prop';
+import setValue from 'set-value';
 import { Action, ACTION_PREFIX } from './createAction';
 
 // Replace all objects along a path with clones, so they can be modified. To be used before mutation on an object to
@@ -43,7 +43,7 @@ export default <T extends object>(defaultState: T, rootPath?: string): (state: T
                 cloneObjects(newState, parts, 0);
             }
 
-            return dotProp.set(newState, path, action.payload);
+            return setValue(newState, path, action.payload);
 
         }
 

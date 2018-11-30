@@ -1,4 +1,4 @@
-import dotProp from 'dot-prop';
+import getValue from 'get-value';
 import { default as createAction, StatePath, pathName } from '../createAction';
 
 export const updater = (
@@ -8,7 +8,7 @@ export const updater = (
     assertCurValue?: (value: any) => boolean,
     assertionFailMessage?: string
 ) => (dispatch: (...args: any[]) => void, getState: () => object) => {
-    const curVal = dotProp.get(getState(), pathName(statePath));
+    const curVal = getValue(getState(), pathName(statePath));
 
     if (assertCurValue && !assertCurValue(curVal)) {
         if (assertionFailMessage && process.env.development) {

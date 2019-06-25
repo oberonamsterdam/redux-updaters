@@ -155,6 +155,12 @@ shallow merge the rest. Arrays are always merged using a shallow merge.
 -   `object` **object**
 -   `depthLimit?` **number**
 
+**Examples**
+
+```javascript
+dispatch(objectMerge('app.myObject', object));
+```
+
 ## arrayReplace
 
 Update object or value from an array. Give index of value to replace the given index.
@@ -168,10 +174,9 @@ Update object or value from an array. Give index of value to replace the given i
 **Examples**
 
 ```javascript
-dispatch(objectMerge('app.myObject', object));
-```
 dispatch(arrayReplace('app.todos', todoIndex, myTodo));
 dispatch(arrayReplace('app.todos', (todoItem, index) => todoItem.id === todoId, myTodo);
+```
 
 ## arrayRemove
 

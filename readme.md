@@ -8,23 +8,25 @@ no actions.
 
 ## Installation
 
-`npm i redux-updaters`
+`npm i redux-updaters redux-thunk`
 
 or
 
-`yarn add redux-updaters`
+`yarn add redux-updaters redux-thunk`
+
+*Note: this package requires redux-thunk middleware. You need to add this yourself, see example below*
 
 ## The gist
 
-This package is designed to provide an interface to using redux that
-matches the development thought proces. When using redux, generally you
+This package is designed to provide an interface to using Redux that
+matches the development thought proces. When using Redux, generally you
 need to define your default state, provide reducers to define how your
 state can get updated and then create an interface to trigger these updates
 through action creators. We feel it makes more sense to focus on creating
-components and use the redux state whenever you need to share state between
-components or component instances (i.e. through persistence). Doing this should
+components and use the Redux state whenever you need to share state between
+components or component instances. Doing this should
 not break your workflow or thought process. Therefor with this package, all 
-you need to do to use your redux store is the following:
+you need to do to use your Redux store is the following:
 
 * Define your initial state.
 * Update the state directly from your components.

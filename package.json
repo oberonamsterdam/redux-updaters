@@ -40,7 +40,7 @@
     "@types/get-value": "^3.0.0",
     "@types/set-value": "^2.0.0",
     "get-value": "^3.0.1",
-    "set-value": "^3.0.0",
+    "set-value": "^3.0.1",
     "snake-case": "^2.1.0"
   },
   "jest": {

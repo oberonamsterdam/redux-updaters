@@ -18,7 +18,7 @@ or
 
 ## The gist
 
-This package is designed to provide an interface to using Redux that
+This package is designed to provide an interface to using Redux that better
 matches the development thought proces. When using Redux, generally you
 need to define your default state, provide reducers to define how your
 state can get updated and then create an interface to trigger these updates
@@ -40,12 +40,15 @@ For an overview of all available updater functions, refer to the [full API docum
 ## Quick usage
 
 ### Define your default state
-
+The default state is like the default state of any reducer, except now it is for the entire state that you wish to control using 
+redux-updaters. This means you can define your entire state tree in here. 
 ```js
 // The default state us just a plain object
 export default {
-    currentIndex: 0,
-};
+    pager: {
+        currentIndex: 0
+    }
+}
 ```
 
 ### Bind the reducer to your redux store
@@ -56,44 +59,40 @@ related packages, for example to [manage your api calls and data](https://github
 
 ```js
 import { createReducer } from 'redux-updaters';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import defaultState from './defaultState';
 
-const reducer = createReducer(defaultState, 'app');
+const reducer = createReducer(defaultState);
 const rootReducer = combineReducers({app: reducer});
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(rootReducer, applyMiddleware(thunk));
 ```
 
 ### Use the state in your components
-
+The package has been tested in combination with React, and therefore we show examples with React, but 
 ```js
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { update } from 'redux-updaters';
 
-// Use react-redux to bind your state and dispatch updates. 
+const MyComponent = props => {
+    // Use react-redux to get your state values and dispatch updates.
+    const currentIndex = useSelector(state => state.app.pager.currentIndex);
+    const dispatch = useDispatch();
 
-const mapStateToProps = state => ({
-    currentIndex: state.app.currentIndex,
-});
-
-const mapDispatchToProps = dispatch => ({
-    updateIndex: index => dispatch(update('app.currentIndex', index))
-});
-
-const enhance = connect(mapStateToProps, mapDispatchToProps);
-
-const MyComponent = props => (
-    <div>
-        <div>The current index is {props.currentIndex}</div>
+    return (
         <div>
-            {[0, 1, 2, 3].map(index =>
-                <button key={index} onClick={() => props.updateIndex(index)}>{index}</button>
-            )}
+            <div>The current index is {currentIndex}</div>
+            <div>
+                {[0, 1, 2, 3].map(index =>
+                    <button key={index} onClick={() => dispatch(update('pager.currentIndex', index))}>{index}</button>,
+                )}
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
-export default enhance(MyComponent);
+export default MyComponent;
 ```
 
 ## Using with TypeScript
@@ -106,11 +105,12 @@ strings when passing the state path to an updater function.
 ```js
 import { createStatePaths } from 'redux-updaters';
 
-export const paths = createStatePaths(defaultState, 'app');
+export const paths = createStatePaths(defaultState);
 
 // somewhere in your component
-dispatch(update(paths.currentIndex, 3));
+dispatch(update(paths.pager.currentIndex, 3));
 // is same as
-dispatch(update('app.currentIndex', 3)); 
+dispatch(update('pager.currentIndex', 3)); 
 // but with type checking. Catch errors before they happen!
+
 ```

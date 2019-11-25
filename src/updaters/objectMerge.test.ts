@@ -191,4 +191,63 @@ test('objectMerge updater should dispatch an objectMerge action', () => {
         }),
         () => (testData.changeDataWithLimit)
     );
+
+    // depth limit test
+
+    const state = {
+        entities: {
+            users: {
+                1: { id: 1 },
+                2: { id: 2 },
+            }
+        }
+    };
+    // should add users
+    objectMerge(
+        'entities',
+        {
+            users: {
+                3: { id: 3 }
+            }
+        },
+        2
+    )(
+        getDispatch(action => {
+            expect(action).toEqual(createAction(
+                'OBJECT_MERGE',
+                'entities',
+                {
+                    users: {
+                        1: { id: 1 },
+                        2: { id: 2 },
+                        3: { id: 3 },
+                    }
+                }
+            ));
+        }),
+        () => state
+    );
+    // should overwrite users
+    objectMerge(
+        'entities',
+        {
+            users: {
+                3: { id: 3 }
+            }
+        },
+        1
+    )(
+        getDispatch(action => {
+            expect(action).toEqual(createAction(
+                'OBJECT_MERGE',
+                'entities',
+                {
+                    users: {
+                        3: { id: 3 }
+                    }
+                }
+            ));
+        }),
+        () => state
+    );
 });

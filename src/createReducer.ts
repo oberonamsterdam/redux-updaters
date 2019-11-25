@@ -1,5 +1,6 @@
 import setValue from 'set-value';
 import { Action, ACTION_PREFIX } from './createAction';
+import { Reducer } from 'redux';
 
 // Replace all objects along a path with clones, so they can be modified. To be used before mutation on an object to
 // avoid mutating anything in the state.
@@ -21,13 +22,12 @@ const cloneObjects = (curObj: any, pathParts: string[], curIndex: number) => {
 /**
  * Get the reducer. You will need to add this to your store.
  * @param {object} defaultState
- * @param {string} rootPath The path from the root of your state to where you will use this reducer. Use empty string if you will use this reducer as the root reducer.
  * @returns {(state: object, action: Action) => object}
  * @example
  * const reducer = createReducer(defaultState, 'app');
  * const rootReducer = combineReducers({app: reducer});
  */
-export default <T extends object>(defaultState: T, rootPath?: string): (state: T, action: Action) => T => {
+export default <T extends object>(defaultState: T, rootPath?: string): Reducer<T, Action> => {
     const pathPrefix = rootPath ? rootPath + '.' : '';
     const formatPath = (path: string): string => pathPrefix && path.substr(0, pathPrefix.length) === pathPrefix ? path.substr(pathPrefix.length) : path;
 

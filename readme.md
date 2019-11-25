@@ -68,8 +68,9 @@ const rootReducer = combineReducers({app: reducer});
 const store = createStore(rootReducer, applyMiddleware(thunk));
 ```
 
-### Use the state in your components
-The package has been tested in combination with React, and therefore we show examples with React, but 
+### Use the state in your components - React example
+*This package has been tested in combination with React, so we use React in our examples, but it does not depend on React and can 
+also be used in combination with other view-libraries or frameworks.*
 ```js
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';

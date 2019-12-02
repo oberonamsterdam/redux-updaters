@@ -1,6 +1,6 @@
 {
   "name": "redux-updaters",
-  "version": "0.4.3",
+  "version": "1.0.0",
   "description": "Update your Redux state directly from your components. No reducers, no actions.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

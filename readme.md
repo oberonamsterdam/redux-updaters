@@ -115,3 +115,7 @@ dispatch(update('pager.currentIndex', 3));
 // but with type checking. Catch errors before they happen!
 
 ```
+
+## License
+
+[MIT](LICENSE.md)

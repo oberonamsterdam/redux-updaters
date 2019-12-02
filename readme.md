@@ -1,4 +1,4 @@
-# Redux Updaters
+# <img src="https://user-images.githubusercontent.com/19429291/69951420-83dc0900-14f5-11ea-8c6a-0ddbdd8ea7f9.png" alt="Redux Updaters" width="400" />
 
 [![npm](https://img.shields.io/npm/v/redux-updaters.svg)](https://www.npmjs.com/package/redux-updaters)
 [![Travis](https://img.shields.io/travis/oberonamsterdam/redux-updaters/master.svg)](https://travis-ci.org/oberonamsterdam/redux-updaters/)

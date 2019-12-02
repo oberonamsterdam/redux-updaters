@@ -118,4 +118,4 @@ dispatch(update('pager.currentIndex', 3));
 
 ## License
 
-[MIT](LICENSE.md)
+[MIT](LICENSE)

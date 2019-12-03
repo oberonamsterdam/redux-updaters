@@ -25,7 +25,7 @@ state can get updated and then create an interface to trigger these updates
 through action creators. We feel it makes more sense to focus on creating
 components and use the Redux state whenever you need to share state between
 components or component instances. Doing this should
-not break your workflow or thought process. Therefor with this package, all 
+not break your workflow or thought process. Therefore with this package, all 
 you need to do to use your Redux store is the following:
 
 * Define your initial state.

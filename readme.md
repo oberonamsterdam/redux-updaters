@@ -38,8 +38,6 @@ or
 
 [Read the article on Medium](https://medium.com/oberonamsterdam/a-more-convenient-approach-to-redux-3c5f553e82bb)
 
-Redux Updaters makes it much easier to update 
-
 This package is designed to provide an interface to using Redux that better
 matches the component architecture. Redux prescribes separating state management
 logic from your component logic, through actions and reducers. We believe that when

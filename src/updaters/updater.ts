@@ -9,7 +9,6 @@ export const updater = (
     assertionFailMessage?: string
 ) => (dispatch: (...args: any[]) => void, getState: () => object) => {
     const curVal = getValue(getState(), pathName(statePath));
-
     if (assertCurValue && !assertCurValue(curVal)) {
         if (assertionFailMessage && process.env.development) {
             console.warn(assertionFailMessage);

@@ -1,4 +1,5 @@
 import setValue from 'set-value';
+import getValue from 'get-value';
 import { Action, ACTION_PREFIX } from './createAction';
 import { Reducer } from 'redux';
 
@@ -33,17 +34,19 @@ export default <T extends object>(defaultState: T, rootPath?: string): Reducer<T
 
     return (state: object = defaultState, action: Action): any => {
         if (state && action.type.substr(0, ACTION_PREFIX.length) === ACTION_PREFIX) {
-
             const path = formatPath(action.meta ? action.meta.path : '');
             const parts = path.split('.');
             const newState = { ...state };
-
             // make sure objects don't get mutated by cloning them
             if (parts.length > 1) {
                 cloneObjects(newState, parts, 0);
             }
 
-            return setValue(newState, path, action.payload);
+            if (action.type.substr(0, 6) === '_RESET') {
+                return setValue(newState, path, getValue(defaultState, path));
+            } else {
+                return setValue(newState, path, action.payload);
+            }
 
         }
 

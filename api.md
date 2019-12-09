@@ -13,6 +13,7 @@
   -   [`increment()`](#increment)
   -   [`objectMerge()`](#objectmerge)
   -   [`toggle()`](#toggle)
+  -   [`reset()`](#reset)
 - [Types and interfaces](#types-and-interfaces)
   -   [`StatePathTree`](#statepathtree)
   -   [`StatePath`](#statepath)
@@ -190,6 +191,20 @@ removes items for which the function returns true.
 ```javascript
 dispatch(arrayRemove('app.todos', todoIndex));
 dispatch(arrayRemove('app.todos', (todoItem, index) => todoItem.id === todoId));
+```
+
+### `reset()`
+
+Resets the given state path to the initial state given in the createReducer function.
+
+**Parameters**
+
+-   `statePath` **[StatePath](#statepath)**
+
+**Examples**
+
+```javascript
+dispatch(reset('app.todos'));
 ```
 
 ## Types and interfaces

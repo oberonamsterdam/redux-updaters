@@ -55,7 +55,7 @@ const newState = {
 
 test('createReducer should create a redux reducer and a RESET_ACTION reset to default', () => {
     const reducer: any = createReducer(defaultState);
-    const resetActionType = 'RESET'
+    const resetActionType = 'RESET';
     expect(reducer(newState, createAction(resetActionType, 'a', ''))
                .a).toBe('aa');
     expect(reducer(newState, createAction(resetActionType, 'b', ''))

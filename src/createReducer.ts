@@ -1,6 +1,6 @@
 import setValue from 'set-value';
 import getValue from 'get-value';
-import { Action, ACTION_PREFIX } from './createAction';
+import { Action, ACTION_PREFIX, actionName } from './createAction';
 import { Reducer } from 'redux';
 
 // Replace all objects along a path with clones, so they can be modified. To be used before mutation on an object to
@@ -42,7 +42,7 @@ export default <T extends object>(defaultState: T, rootPath?: string): Reducer<T
                 cloneObjects(newState, parts, 0);
             }
 
-            if (action.type.substr(0, 6) === '_RESET') {
+            if (action.type === actionName('RESET', rootPath ? `${rootPath}${ACTION_PREFIX}${path}${ACTION_PREFIX}` : `${ACTION_PREFIX}${path}${ACTION_PREFIX}`)) {
                 return setValue(newState, path, getValue(defaultState, path));
             } else {
                 return setValue(newState, path, action.payload);

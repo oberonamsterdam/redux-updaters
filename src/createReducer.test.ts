@@ -1,5 +1,5 @@
 import createReducer from './createReducer';
-import { ACTION_PREFIX } from './createAction';
+import createAction from './createAction';
 const defaultState = {
     a: 'aa',
     b: '1',
@@ -13,87 +13,63 @@ const defaultState = {
 test('createReducer should create a redux reducer that updates the state on updater actions', () => {
     const reducer = createReducer(defaultState);
     const nonSupportedActionType = 'NON_SUPPORTED_ACTION';
-    const supportedActionType = ACTION_PREFIX + 'TEST';
+    const supportedActionType = 'TEST';
 
     expect(reducer(defaultState, { type: nonSupportedActionType })).toBe(defaultState);
 
-    expect(reducer(defaultState, {
-        type: supportedActionType,
-        meta: { path: 'a' },
-        payload: 'aaa',
-    }).a).toBe('aaa');
+    expect(reducer(defaultState, createAction(supportedActionType, 'a', 'aaa')).a)
+        .toBe('aaa');
 
-    expect(reducer(defaultState, {
-        type: supportedActionType,
-        meta: { path: 'd.e' },
-        payload: 3,
-    }).d.e).toBe(3);
+    expect(reducer(defaultState, createAction(supportedActionType, 'b', '110')).b)
+        .toBe('110');
+
+    expect(reducer(defaultState, createAction(supportedActionType, 'c', false)).c)
+        .toBe(false);
+
+    expect(reducer(defaultState, createAction(supportedActionType, 'd.e', 3)).d.e)
+        .toBe(3);
+
+    expect(reducer(defaultState, createAction(supportedActionType, 'e', ['filled Array'])).e)
+        .toEqual(['filled Array']);
 
     const deepReducer = createReducer(defaultState, 'root');
-    expect(deepReducer(defaultState, {
-        type: supportedActionType,
-        meta: { path: 'root.d.e' },
-        payload: 3,
-    }).d.e).toBe(3);
+    expect(deepReducer(defaultState, createAction(supportedActionType, 'root.d.e', 3)).d.e).toBe(3);
 
-    const newState = deepReducer(defaultState, {
-        type: supportedActionType,
-        meta: { path: 'root.d.e' },
-        payload: 3,
-    });
+    const newerState = deepReducer(defaultState, createAction(supportedActionType, 'root.d.e', 3));
     // objects should not be mutated
-    expect(newState).not.toBe(defaultState);
-    expect(newState.d).not.toBe(defaultState.d);
-    expect(newState.d.e).toBe(3);
-    expect(defaultState.d.e).toBe(2);
+    expect(newerState).not.toBe(defaultState);
+    expect(newerState.d).not.toBe(defaultState.d);
+    expect(newerState.d.e).toBe(3);
+    expect(newerState.d.e).toBe(3);
 });
 
-test('createReducer should create a redux reducer and an UPDATE_ACTION should update the state and a RESET_ACTION reset to default', () => {
-    const reducer = createReducer(defaultState);
-    const nonSupportedActionType = 'NON_SUPPORTED_ACTION';
-    const updateActionType = ACTION_PREFIX + 'UPDATE';
-    const resetActionType = ACTION_PREFIX + 'RESET';
+const newState = {
+    a: 'bbe',
+    b: '110',
+    c: false,
+    d: {
+        e: 10,
+    },
+    e: ['filled array'],
+};
 
-    expect(reducer(defaultState, { type: nonSupportedActionType })).toBe(defaultState);
+test('createReducer should create a redux reducer and a RESET_ACTION reset to default', () => {
+    const reducer: any = createReducer(defaultState);
+    const resetActionType = 'RESET'
+    expect(reducer(newState, createAction(resetActionType, 'a', ''))
+               .a).toBe('aa');
+    expect(reducer(newState, createAction(resetActionType, 'b', ''))
+               .b).toBe('1');
+    expect(reducer(newState, createAction(resetActionType, 'c', ''))
+               .c).toBe(true);
+    expect(reducer(newState, createAction(resetActionType, 'd.e', ''))
+               .d.e).toBe(2);
+    expect(reducer(newState, createAction(resetActionType, 'e', ''))
+               .e).toEqual([]);
 
-    expect(reducer(defaultState, {
-        type: updateActionType,
-        meta: { path: 'a' },
-        payload: 'ab',
-    }).a).toBe('ab');
-
-    expect(reducer(defaultState, {
-        type: resetActionType,
-        meta: { path: 'a' },
-        payload: '',
-    }).a).toBe('aa');
-
-    expect(reducer(defaultState, {
-        type: resetActionType,
-        meta: { path: 'd.e' },
-        payload: '',
-    }).d.e).toBe(2);
-
-    const deepReducer = createReducer(defaultState, 'root');
-    expect(deepReducer(defaultState, {
-        type: updateActionType,
-        meta: { path: 'root.b' },
-        payload: '2',
-    }).b).toBe('2');
-
-    const updateState = deepReducer(defaultState, {
-        type: updateActionType,
-        meta: { path: 'root.d.e' },
-        payload: 3,
-    });
-
-    const resetState = deepReducer(defaultState, {
-        type: resetActionType,
-        meta: { path: 'root.d.e' },
-        payload: '',
-    });
+    const deepReducer: any = createReducer(defaultState, 'root');
+    const resetState = deepReducer(newState, createAction(resetActionType, 'root.d.e', ''));
     // objects should not be mutated
-    expect(updateState.d.e).toBe(3);
     expect(resetState).not.toBe(defaultState);
     expect(resetState.b).not.toBe(defaultState);
     expect(resetState.d).toEqual(defaultState.d);

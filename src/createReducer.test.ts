@@ -43,29 +43,28 @@ test('createReducer should create a redux reducer that updates the state on upda
     expect(newerState.d.e).toBe(3);
 });
 
-const newState = {
-    a: 'bbe',
-    b: '110',
-    c: false,
-    d: {
-        e: 10,
-    },
-    e: ['filled array'],
-};
-
 test('createReducer should create a redux reducer and a RESET_ACTION reset to default', () => {
+    const newState = {
+        a: 'bbe',
+        b: '110',
+        c: false,
+        d: {
+            e: 10,
+        },
+        e: ['filled array'],
+    };
     const reducer: any = createReducer(defaultState);
     const resetActionType = 'RESET';
     expect(reducer(newState, createAction(resetActionType, 'a', ''))
-               .a).toBe('aa');
+               .a).toBe(defaultState.a);
     expect(reducer(newState, createAction(resetActionType, 'b', ''))
-               .b).toBe('1');
+               .b).toBe(defaultState.b);
     expect(reducer(newState, createAction(resetActionType, 'c', ''))
-               .c).toBe(true);
+               .c).toBe(defaultState.c);
     expect(reducer(newState, createAction(resetActionType, 'd.e', ''))
-               .d.e).toBe(2);
+               .d.e).toBe(defaultState.d.e);
     expect(reducer(newState, createAction(resetActionType, 'e', ''))
-               .e).toEqual([]);
+               .e).toEqual(defaultState.e);
 
     const deepReducer: any = createReducer(defaultState, 'root');
     const resetState = deepReducer(newState, createAction(resetActionType, 'root.d.e', ''));

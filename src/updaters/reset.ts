@@ -6,9 +6,12 @@ import updater from './updater';
  * @example
  * dispatch(toggle('app.menuIsOpen'))
  */
+
+export const ACTION_TYPE_RESET = 'RESET';
+
 export default (statePath: StatePath) =>
     updater(
-        'RESET',
+        ACTION_TYPE_RESET,
         statePath,
         () => '',
     );

@@ -8,3 +8,4 @@ export { default as arrayAdd } from './updaters/arrayAdd';
 export { default as objectMerge } from './updaters/objectMerge';
 export { default as arrayReplace } from './updaters/arrayReplace';
 export { default as arrayRemove } from './updaters/arrayRemove';
+export { default as reset } from './updaters/reset';

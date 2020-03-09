@@ -1,6 +1,8 @@
 import setValue from 'set-value';
-import { Action, ACTION_PREFIX } from './createAction';
+import getValue from 'get-value';
+import { Action, ACTION_PREFIX, actionName, pathName } from './createAction';
 import { Reducer } from 'redux';
+import { ACTION_TYPE_RESET } from './updaters/reset';
 
 // Replace all objects along a path with clones, so they can be modified. To be used before mutation on an object to
 // avoid mutating anything in the state.
@@ -33,17 +35,19 @@ export default <T extends object>(defaultState: T, rootPath?: string): Reducer<T
 
     return (state: object = defaultState, action: Action): any => {
         if (state && action.type.substr(0, ACTION_PREFIX.length) === ACTION_PREFIX) {
-
             const path = formatPath(action.meta ? action.meta.path : '');
             const parts = path.split('.');
             const newState = { ...state };
-
             // make sure objects don't get mutated by cloning them
             if (parts.length > 1) {
                 cloneObjects(newState, parts, 0);
             }
 
-            return setValue(newState, path, action.payload);
+            if (action.type === actionName(ACTION_TYPE_RESET, pathName(action.meta ? action.meta.path : ''))) {
+                return setValue(newState, path, getValue(defaultState, path));
+            } else {
+                return setValue(newState, path, action.payload);
+            }
 
         }
 
